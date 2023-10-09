@@ -22,6 +22,9 @@ jobs:
         run: |
           npm install
           npm run test
+      - name: Run the tests and generate coverage report
+        working-directory: ./data-kernel
+        run: npm run test -- --coverage
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
         env:
