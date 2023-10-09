@@ -4,7 +4,15 @@ Check out the live app [here!](https://gregarious-granita-344ab3.netlify.app)
 
 # Data Kernel_
 
-The Data Kernel Repository is part of an assignment completed for Northeastern University London. The core functionality for the web app is as a portal for test data exports. The web app was developed in 2023 as a software development project using Github Projects as the project management tool. The linked project is [here](https://github.com/users/kirryl/projects/1/views/3).
+The Data Kernel Repository is part of a project assignment completed for Northeastern University London. The core functionality for the developed web app is as a portal for test data exports. The web app was developed in 2023 as a Minimum Viable Product using Github Projects as the project's management tool. The linked project is [here](https://github.com/users/kirryl/projects/1/views/3).
+
+![alt](res/github-mark-white.svg)
+
+## Project Management
+
+The project for developing Data Kernel was organised using Github Projects and the issues and milestones functionality of Github. Each project task was ticketed and tracked in the Project ticketing system. 
+
+
 
 ## Problem Analysis
 
@@ -22,8 +30,8 @@ The Data Kernel Repository is part of an assignment completed for Northeastern U
 
 ## App Testing
 
-<p align="center">
-    <img src="res/jest-logo.PNG" alt="Jest library logo" width="100">
+<p align="left">
+    <img src="res/jest-logo.PNG" alt="Jest library logo" height="125">
 </p>
 
 ### Component Testing
@@ -39,7 +47,9 @@ npm run test
 
 ## Deployments
 
-![netlify logo](res/Netlify-logo.png)
+<p align="left">
+    <img src="res/Netlify-logo.png" alt="Netlify logo" height="125">
+</p>
 
 ### Environments
 
