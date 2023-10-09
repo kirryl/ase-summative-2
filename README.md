@@ -4,7 +4,7 @@ Check out the live app [here!](https://gregarious-granita-344ab3.netlify.app)
 
 # Data Kernel_
 
-For Northeastern University
+The Data Kernel Repository is part of an assignment completed for Northeastern University London. The core functionality for the web app is as a portal for test data exports. The web app was developed in 2023 as a software development project using Github Projects as the project management tool. The linked project is [here](https://github.com/users/kirryl/projects/1/views/3).
 
 ## Problem Analysis
 
