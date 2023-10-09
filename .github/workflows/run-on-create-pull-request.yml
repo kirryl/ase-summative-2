@@ -1,0 +1,31 @@
+name: Run tests
+on:
+  pull_request:
+    branches:
+      - development
+      - quality-assurance
+      - main
+jobs:
+  run-jest-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: npm ci, build and test
+        working-directory: ./data-kernel
+        run: |
+          npm install
+          npm test
+      - name: Run the tests and generate coverage report
+        working-directory: ./data-kernel
+        run: npm test -- --coverage
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v3
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
