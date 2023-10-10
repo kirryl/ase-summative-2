@@ -1,0 +1,27 @@
+# This workflow is activated when a pr is created to merge into a protected branch.
+name: On create PR to protected environment
+jobs:
+  node-build-and-run-tests:
+    strategy:
+      matrix:
+        # build and tests completed using multiple versions of Node to prevent obsolescence
+        node-version: [18.x, 19.x, 20.x]
+    # calls reusable testing workflow
+    uses: ./.github/workflows/run-node-tests.yml
+    with:
+      node-version: ${{ matrix.node-version }}
+
+  create-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3@quality-assurance
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          signoff: false
+          branch: development
+          delete-branch: false
+          title: 'Deploy development to quality-assurance branch'
+          labels: automated pr
+          draft: false
