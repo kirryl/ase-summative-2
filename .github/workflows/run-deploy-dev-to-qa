@@ -1,5 +1,5 @@
-# This workflow is activated when a pr is created to merge into a protected branch.
-name: On create PR to protected environment
+# This workflow runs tests then deploys the latest development branch to quality assurance
+name: Deploy development to quality-assurance
 jobs:
   node-build-and-run-tests:
     strategy:
@@ -12,6 +12,7 @@ jobs:
       node-version: ${{ matrix.node-version }}
 
   create-pull-request:
+    needs: node-build-and-run-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3@quality-assurance
