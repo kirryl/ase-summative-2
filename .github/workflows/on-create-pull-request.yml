@@ -10,6 +10,7 @@ jobs:
     uses: ./.github/workflows/run-node-tests.yml
 
   generate-code-coverage:
+    needs: build-and-run-tests
     uses: ./.github/workflows/run-generate-code.yml
     with:
       node-version: 20.x
