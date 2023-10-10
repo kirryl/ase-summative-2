@@ -1,5 +1,6 @@
 # This workflow runs tests then deploys the latest development branch to quality assurance
 name: Deploy development to quality-assurance
+on: [workflow_dispatch]
 jobs:
   node-build-and-run-tests:
     strategy:
