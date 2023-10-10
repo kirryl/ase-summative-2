@@ -6,7 +6,10 @@ on:
       - quality-assurance
       - main
 jobs:
-  run-jest-tests:
+  call-workflow-2-in-local-repo:
+    uses: ./.github/workflows/run-node-tests.yml
+
+  generate-upload-coverage:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -20,13 +23,6 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: npm install, build and test
-        env:
-          CI: false
-        run: |
-          npm install
-          npm run build --if-present
-          npm test
       - name: Run the tests and generate coverage report
         run: npm test -- --coverage
       - uses: codecov/codecov-action@v3
