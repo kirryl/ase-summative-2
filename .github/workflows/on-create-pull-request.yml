@@ -1,4 +1,4 @@
-name: Run Tests
+name: On Create PR to protected environment
 on:
   pull_request:
     branches:
@@ -6,7 +6,7 @@ on:
       - quality-assurance
       - main
 jobs:
-  build-and-run-tests:
+  node-build-and-run-tests:
     strategy:
       matrix:
         node-version: [18.x, 19.x, 20.x]
