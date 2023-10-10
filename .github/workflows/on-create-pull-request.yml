@@ -9,7 +9,7 @@ jobs:
   build-and-run-tests:
     uses: ./.github/workflows/run-node-tests.yml
 
-  call-workflow-2-in-local-repo:
+  generate-code-coverage:
     uses: ./.github/workflows/run-generate-code.yml
     with:
       node-version: 20.x
