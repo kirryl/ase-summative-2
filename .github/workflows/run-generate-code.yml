@@ -1,28 +1,22 @@
-name: Run tests
+name: Generate code coverage
 on:
-  pull_request:
-    branches:
-      - development
-      - quality-assurance
-      - main
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
 jobs:
-  call-workflow-2-in-local-repo:
-    uses: ./.github/workflows/run-node-tests.yml
-
   generate-upload-coverage:
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./data-kernel
-    strategy:
-      matrix:
-        node-version: [18.x, 19.x, 20.x]
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ inputs.node-version }}
       - name: Run the tests and generate coverage report
         run: |
           npm install

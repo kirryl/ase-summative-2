@@ -1,0 +1,15 @@
+name: Run Tests
+on:
+  pull_request:
+    branches:
+      - development
+      - quality-assurance
+      - main
+jobs:
+  build-and-run-tests:
+    uses: ./.github/workflows/run-node-tests.yml
+
+  call-workflow-2-in-local-repo:
+    uses: ./.github/workflows/run-generate-code.yml
+    with:
+      node-version: 20.x
