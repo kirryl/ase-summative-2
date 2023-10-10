@@ -1,4 +1,4 @@
-# This reusable workflow generates a code coverage report and uploads it to Codecov
+# This reusable workflow generates the code coverage report and uploads to codecov
 name: Generate code coverage
 on:
   workflow_call:
@@ -22,8 +22,8 @@ jobs:
         run: |
           npm install
           npm test -- --coverage
-      - name: Upload code coverage report to Codecov
-        uses: codecov/codecov-action@v3
+      # upload coverage report to codecov analytics
+      - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
