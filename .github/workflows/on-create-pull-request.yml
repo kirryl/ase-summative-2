@@ -1,4 +1,5 @@
-name: On Create PR to protected environment
+# This workflow is activated when a pr is created to merge into a protected branch.
+name: On create PR to protected environment
 on:
   pull_request:
     branches:
@@ -9,13 +10,17 @@ jobs:
   node-build-and-run-tests:
     strategy:
       matrix:
+        # build and tests completed using multiple versions of Node to prevent obsolescence
         node-version: [18.x, 19.x, 20.x]
+    # calls reusable testing workflow
     uses: ./.github/workflows/run-node-tests.yml
     with:
       node-version: ${{ matrix.node-version }}
 
   generate-code-coverage:
+    # code coverage only generated after successful tests and build
     needs: node-build-and-run-tests
     uses: ./.github/workflows/run-generate-code.yml
     with:
+    # code coverage report only needs to be generated once with latest node version
       node-version: 20.x
