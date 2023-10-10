@@ -1,0 +1,42 @@
+# This reusable workflow builds data kernel and runs the test scripts
+name: Node Tests
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        required: true
+        type: string
+jobs:
+  reusable_test_build_job:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./data-kernel
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: npm install and build
+        env:
+          CI: false
+        run: |
+          npm install
+          npm run build --if-present
+
+  reusable_run_tests_job:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./data-kernel
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ inputs.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ inputs.node-version }}
+      - name: npm install and test
+        run: |
+          npm install
+          npm test
