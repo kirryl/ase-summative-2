@@ -1,0 +1,28 @@
+# This workflow runs tests then deploys the latest development branch to quality assurance
+name: Deploy development to quality-assurance
+jobs:
+  node-build-and-run-tests:
+    strategy:
+      matrix:
+        # build and tests completed using multiple versions of Node to prevent obsolescence
+        node-version: [18.x, 19.x, 20.x]
+    # calls reusable testing workflow
+    uses: ./.github/workflows/run-node-tests.yml
+    with:
+      node-version: ${{ matrix.node-version }}
+
+  create-pull-request:
+    needs: node-build-and-run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3@quality-assurance
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v5
+        with:
+          signoff: false
+          branch: development
+          delete-branch: false
+          title: 'Deploy development to quality-assurance branch'
+          labels: automated pr
+          draft: false
