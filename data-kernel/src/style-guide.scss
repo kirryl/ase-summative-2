@@ -1,0 +1,19 @@
+/* Your customizations here */
+
+$body-bg: rgba(249, 250, 244, 1);
+
+$primary: rgba(249, 166, 108, 1);
+$secondary: rgba(74, 97, 99, 1);
+
+@import url('https://fonts.googleapis.com/css?family=Inter');
+
+h1 {
+    font-family: 'Inter', sans-serif;
+}
+
+button {
+    font-family: 'Inter', sans-serif;
+}
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';
