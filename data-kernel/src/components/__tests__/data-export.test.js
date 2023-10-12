@@ -1,9 +1,15 @@
-import { render, screen, cleanup } from "@testing-library/react";
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import DataExport from "../data-export";
+import axios from "axios";
 
 test("smoke test", () => {
   expect(true).toBe(true);
 });
+
+jest.mock("axios");
+
+global.URL.createObjectURL = jest.fn();
 
 describe("When the country data export is loaded", () => {
   it("should render title", () => {
@@ -27,5 +33,20 @@ describe("When the country data export is loaded", () => {
     expect(dataExportDesc).toHaveTextContent(
       "This is a portal for exporting country data"
     );
+  });
+
+  test("loads countries and triggers download on button click", async () => {
+    const responseData = [{ name: "Country A" }, { name: "Country B" }];
+    axios.get.mockResolvedValue({ data: responseData });
+
+    render(<DataExport />);
+
+    fireEvent.click(screen.getByTestId("page-export-button"));
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith(
+        "https://restcountries.com/v3.1/all"
+      );
+    });
   });
 });

@@ -5,26 +5,24 @@ import axios from "axios";
 import { useState } from "react";
 
 function DataExport() {
-  // const { data, loading, error, getData } = useLoadCountries();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const baseURL = "https://restcountries.com/v3.1";
 
-  function loadCountries() {
+  const loadCountries = async () => {
     setLoading(true);
-    axios
-      .get(`${baseURL}/all`)
-      .then((response) => {
-        setData(response.data);
-        setLoading(false);
-      })
-      .catch((er) => {
-        setError(er);
-        setLoading(false);
-      });
-  }
+
+    try {
+      const response = await axios.get(`${baseURL}/all`);
+      setData(response.data);
+    } catch (er) {
+      setError(er);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const downloadFile = ({ data, fileName, fileType }) => {
     // Create a blob with the data we want to download as a file
@@ -34,17 +32,17 @@ function DataExport() {
     const a = document.createElement("a");
     a.download = fileName;
     a.href = window.URL.createObjectURL(blob);
-    const clickEvt = new MouseEvent("click", {
+    const clickEvent = new MouseEvent("click", {
       view: window,
       bubbles: true,
       cancelable: true,
     });
-    a.dispatchEvent(clickEvt);
+    a.dispatchEvent(clickEvent);
     a.remove();
   };
 
-  const handleButtonClick = () => {
-    loadCountries();
+  const handleButtonClick = async () => {
+    await loadCountries();
     downloadFile({
       data: JSON.stringify(data, null, "\t"),
       fileName: "countries.json",
