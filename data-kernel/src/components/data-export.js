@@ -15,9 +15,11 @@ function DataExport() {
     setLoading(true);
 
     try {
+      // call api using baseURL
       const response = await axios.get(`${baseURL}/all`);
       setData(response.data);
     } catch (er) {
+      // to be expanded on with error handling
       setError(er);
     } finally {
       setLoading(false);
@@ -25,24 +27,25 @@ function DataExport() {
   };
 
   const downloadFile = ({ data, fileName, fileType }) => {
-    // Create a blob with the data we want to download as a file
+    // Create a blob
     const blob = new Blob([data], { type: fileType });
-    // Create an anchor element and dispatch a click event on it
-    // to trigger a download
-    const a = document.createElement("a");
-    a.download = fileName;
-    a.href = window.URL.createObjectURL(blob);
+    // Create an anchor element and click it
+    const anchor = document.createElement("a");
+    anchor.download = fileName;
+    anchor.href = window.URL.createObjectURL(blob);
     const clickEvent = new MouseEvent("click", {
       view: window,
       bubbles: true,
       cancelable: true,
     });
-    a.dispatchEvent(clickEvent);
-    a.remove();
+    anchor.dispatchEvent(clickEvent);
+    anchor.remove();
   };
 
   const handleButtonClick = async () => {
+    // call api
     await loadCountries();
+    // download JSON file
     downloadFile({
       data: JSON.stringify(data, null, "\t"),
       fileName: "countries.json",
