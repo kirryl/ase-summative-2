@@ -80,7 +80,7 @@ To set up the Data Kernel app locally in your console, follow these steps:
 
 10. In the browder window click on the tile containing 'Countries'
 
-11. Click on the 'Export JSON' button to download the country data export (In testing the api has not always produced a result so a second press may be required)
+11. Click on the 'Export JSON' button to download the country data export (In testing the api has not always produced a result, so a second press may be required)
 
 See the project report for guidance on local testing.
 
@@ -389,4 +389,3 @@ There are areas of accessibility which should be addressed in future development
 
 - Keyboard-only navigation - to help users with assistive technology to navigate and use the site.
 - Accessible Rich Internet Applications (ARIA) attributes - to help provide context for screen readers and other assistive technology users.
-- 
