@@ -80,7 +80,7 @@ To set up the Data Kernel app locally in your console, follow these steps:
 
 10. In the browder window click on the tile containing 'Countries'
 
-11. Click on the 'Export JSON' button to download the country data export (In testing the api has not always produced a result, so a second press may be required)
+11. Click on the 'Export JSON' button to download the country data export (In testing the button click has not worked first time on all browsers, so try pressing again if the export is empty.)
 
 See the project report for guidance on local testing.
 
