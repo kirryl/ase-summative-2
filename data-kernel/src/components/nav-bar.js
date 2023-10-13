@@ -9,7 +9,7 @@ const NavBarDataKernel = () => {
   return (
     <Navbar className="navbar-expand-lg navbar-light bg-light fixed-bottom navbar-dark bg-dark">
       <Container>
-        <Navbar.Brand href="#home">
+        <Navbar.Brand href="/">
           <img
             src={logo}
             width="30"
@@ -20,6 +20,22 @@ const NavBarDataKernel = () => {
           {"   "}
           Data Kernel_
         </Navbar.Brand>
+        <Nav className="me-auto">
+          <Nav.Link href="/">Home</Nav.Link>
+          <Nav.Link href="https://github.com/kirryl/ase-summative-2/tree/main#readme">
+            About
+          </Nav.Link>
+          <NavDropdown
+            title="Data Export"
+            id="basic-nav-dropdown"
+            className="dropup"
+          >
+            <NavDropdown.Item href="/country-export">
+              Countries
+            </NavDropdown.Item>
+            <NavDropdown.Item>TBC</NavDropdown.Item>
+          </NavDropdown>
+        </Nav>
       </Container>
     </Navbar>
   );
