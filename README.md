@@ -75,8 +75,12 @@ To set up the Data Kernel app locally in your console, follow these steps:
     npm start
     ```
 
-A browser window should open with the locally hosted app.
-If a browser window doesn't open, navigate to url `http://localhost:3000/`in your browser.
+    A browser window should open with the locally hosted app.
+    If a browser window doesn't open, navigate to url `http://localhost:3000/`in your browser.
+
+10. In the browder window click on the tile containing 'Countries'
+
+11. Click on the 'Export JSON' button to download the country data export (In testing the api has not always produced a result so a second press may be required)
 
 See the project report for guidance on local testing.
 
@@ -226,45 +230,6 @@ Another task involved in setting up the development environment is protecting th
 - Pushing code directly is blocked to protected branches
 - A code review approval is required from a user other than a PR author to merge a branch into a target protected branch
 
-## App Testing
-
-<p align="left">
-    <img src="res/jest-logo.PNG" alt="Jest library logo" height="125">
-</p>
-
-### Component Testing
-
-The Data Kernel app is built with functional components. The Jest framework is used to run component testing for the web app. This library was chosen as it has wide use and comes configured with the create-react-app library.
-
-To run the testing suite locally execute the following in the console:
-
-```node
-cd data-kernel
-npm run test
-```
-
-<p align="left">
-    <img src="res/codecov.svg" alt="Netlify logo" height="125">
-</p>
-
-### Test Coverage
-
-The repository's CI/CD pipeline includes automated code coverage. On the create/update of a pull request into one of the protected branches (`development`, `quality-assurance`, `main`), a github workflow runs generates a `.xml` test coverage report. The same workflow publishes the coverage report to Codecov. The Codecov service creates analytics on the repository's test coverage.
-
-The repository needs regular test coverage reports, so that there is no untested functionality in the web app. Running the coverage report when creating a pr flags any deterioration in coverage. If the percentage coverage reduces between changes, the developer it expected to at least match the previous test coverage.
-
-## CI/CD
-
-TBC Intro on CD/CD
-
-<p align="left">
-    <img src="res/Netlify-logo.png" alt="Netlify logo" height="125">
-</p>
-
-### Environments
-
-The app is deployed sequentially in the `development`, `quality-assurance`, and `main` environments. The Netlify platform is used to build and deploy the web app to each environment.
-
 #### Development
 
 The `development` branch and environment is a stable version of the web app for active development.
@@ -289,6 +254,139 @@ Access `main` environment [here](https://gregarious-granita-344ab3.netlify.app)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5a0f3cd6-4264-4d26-89b2-49d56405256f/deploy-status)](https://app.netlify.com/sites/gregarious-granita-344ab3/deploys)
 
-### Workflow Automation
+### CI/CD
 
-TBC on CI/CD pipelines
+<p align="left">
+    <img src="res/Netlify-logo.png" alt="Netlify logo" height="125">
+</p>
+
+The project set out to employ Continuous Integration and Continuous Deployment throughout the development of the Data Kernel Web App. Using the established environment branches, when a completed feature reached `development`, the code app would be deployed to Netlify as a stable development deployment. Once a group of features were deployed in development, the `development` branch would be merged into `quality assurance` which triggered a deployment to a Netlify QA environment. Once QA testing is complete the features are merged into `main`, where the live application is deployed again to Netlify. This automated approach reduces the effort spent on managing manual deployments.
+
+After trialling continuous deployments in three environments, the process became difficult to manage. The single developer team meant that the benefits of merging into a stable developer branch first, followed by QA were lost. For future projects expanding on Data Kernel, using a Git branching strategy such as Git Flow may be more efficient.
+
+## Code Quality
+
+### Test Driven Development
+
+<p align="left">
+    <img src="res/codecov.svg" alt="Netlify logo" height="100">
+</p>
+
+The Data Kernel project set out to follow test-driven development (TDD) so that defects and missing functionality never reach a live environment. This begins with setting out the intended functionality of a ticket during refinement. During development, ample unit tests should be written to cover the added functionality.
+
+To track and flag the test coverage for the web app, Codecov was used. Codecov is a test coverage service, which analyses the repository and reports its test coverage. As mentioned before this is integrated in the repository’s CI/CD pipeline. Whenever PR is made to a protected environment, a test coverage report is generated and deployed to Codecov. You can view the current code coverage analytics by clicking on the badge below.
+
+The repository needs regular test coverage reports, so that there is no untested functionality in the web app. Running the coverage report when creating a PR flags any deterioration in coverage. If the percentage coverage reduces between changes, the developer it expected to at least match the previous test coverage.
+
+### Peer Code Reviews
+
+An important step in this project’s Testing workflow is peer code reviews. Whenever a change is being merged into a protected environment, the peer code review requirement is the last defence against bad code. This process involves a developer apart from the code author reviewing the code changes and suggesting alterations before a merge. In this project, this process has helped spot missing comments and unit tests.
+
+The peer review process promotes higher coding standards and makes sure that code is clean, tested and well-commented. Like the following code shows.
+
+```javascript
+  const baseURL = "https://restcountries.com/v3.1";
+
+  const loadCountries = async () => {
+    setLoading(true);
+
+    try {
+      // call api using baseURL
+      const response = await axios.get(`${baseURL}/all`);
+      setData(response.data);
+    } catch (er) {
+      // error handling
+      setError(er);
+    } finally {
+      setLoading(false);
+    }
+  };
+```
+
+### Testing with Jest
+
+<p align="left">
+    <img src="res/jest-logo.PNG" alt="Jest library logo" height="120">
+</p>
+
+The Data Kernel app is built with functional components. The Jest framework is used to run component testing for the web app. This library was chosen as it has wide use and comes configured with the create-react-app library.
+
+To run the testing suite locally execute the following in the console one line at a time:
+
+```node
+cd data-kernel
+npm install
+npm test
+```
+
+The MVP version of the app has UI testing, checking that elements are visible and interactable. For example:
+
+```javascript
+it("renders description", () => {
+    render(<LandingPage />, { wrapper: MemoryRouter });
+
+    const description = screen.getByText("Welcome to the Data Kernel App");
+    expect(description).toBeInTheDocument();
+  });
+
+  it("router navigates to country-export on tile click", () => {
+    // mock navigate
+    const mockRouter = jest.fn();
+    require("react-router-dom").useNavigate.mockImplementation(
+      () => mockRouter
+    );
+
+    render(<LandingPage />, { wrapper: MemoryRouter });
+
+    // get tile with countries link
+    const countriesTile = screen.getByRole("button", { name: "Countries" });
+    fireEvent.click(countriesTile);
+
+    expect(mockRouter).toHaveBeenCalledWith("/country-export");
+  });
+```
+
+The UI testing also mocks the external data api and tests whether its calls to it are valid:
+
+```javascript
+test("loads countries and triggers download on button click", async () => {
+    const responseData = [{ name: "Country A" }, { name: "Country B" }];
+    axios.get.mockResolvedValue({ data: responseData });
+
+    render(<DataExport />);
+
+    fireEvent.click(screen.getByTestId("page-export-button"));
+
+    await waitFor(() => {
+      expect(axios.get).toHaveBeenCalledWith(
+        "https://restcountries.com/v3.1/all"
+      );
+    });
+  });
+```
+
+Although TDD was employed in the project where possible. Testing every new line of functional code was at times very complex. Fox instance, the mocking of the axios library was very difficult and blocked the data export feature for an entire sprint. This can be attributed to inexperience with TDD specifically in React with the Jest framework
+
+Behaviour Driven Development (BDD) may be a suitable alternative as it doesn't infringe as much on the developer's coding process, but still aims to root out defects and incorrect feature behaviour.
+
+## Evaluation
+
+### Requirements
+
+The final project Kanban board is extensive, but there were features which didn't make the MVP release. This includes the filtering of data before an export. This proved to be a complex feature to implement and didn't reach a working state before the project deadline. It should be the first feature to be prototyped in future development.
+
+A refactor of the code would also be required as part of any future work, as some functions such as the API call could be restructured into a React Hook. This would make the component much more widely usable in the application and serve as the basis for new data-type exports in the future.
+
+### UI and UX
+
+The User Interface looks clean and not cluttered. The UI has been designed to be scalable and should be easy to expand upon for future development.
+
+### Usability and Accessibility
+
+The website is quite simple, but there have been considerations taken for usability and accessibility. For instance, alt text is used to help screen readers understand images. Hyperlinks in the website are correctly labelled making them useful for screen readers and buttons are large making them easy to use. Finally, the app's colour palette has gone through several iterations to reach a theme which has contrasting colours and readable text.
+
+There are areas of accessibility which should be addressed in future development, such as:
+
+- Keyboard-only navigation - to help users with assistive technology to navigate and use the site.
+- Accessible Rich Internet Applications (ARIA) attributes - to help provide context for screen readers and other assistive technology users.
+- 
