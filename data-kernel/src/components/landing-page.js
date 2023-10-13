@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import logo from "../logo.svg";
 
 const LandingPage = () => {
   // navigation link to countries export page
@@ -12,9 +13,21 @@ const LandingPage = () => {
     <div className="container-fluid">
       <div className="row">
         <div className="col-md-12">
-          <h1 className="text-center text-primary mt-5 pt-5 pb-5">
-            Data Kernel_
-          </h1>
+          <div className="h1 text-primary mt-5 pt-5 pb-5">
+            <span className="icon m-2">
+              <img
+                src={logo}
+                width="100"
+                height="100"
+                className="text-center pr-5"
+                alt="Data Kernel Logo"
+                style={{
+                  verticalAlign: "bottom",
+                }}
+              />
+            </span>
+            <span className="h1 text-primary m-2">Data Kernel_</span>
+          </div>
           <p className="text-center lead pb-5 mb-5">
             Welcome to the Data Kernel App
           </p>
