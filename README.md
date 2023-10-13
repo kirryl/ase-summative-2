@@ -168,25 +168,63 @@ Branches:
 - Hyphen `-` separated names
 - Feature branch names start with `feature` (e.g. `feature-add-more-tests`)
 
-## Problem Analysis
+## Problem Analysis and Ideation
 
-![alt text](res/Ideate1.PNG)
+Before a set of user stories can be created the user’s problem needs to be analysed. This was completed using Miro, which is an online tool that functions as an interactive online board. The problem was defined as ‘Developer workflow slowed down by the need to create test data’. Leading on from that there was an ideation session, to brainstorm possible solutions to address the user problem, as evidenced in the picture below. In this session, each feature idea was evaluated with pros and cons to help choose a feasible solution.
 
-![alt text](res/Ideate2.PNG)
+From the problem analysis session, the target user and customer stakeholders were defined as software developers and data engineers. This is because these stakeholder groups are most likely to be using generic test data for their work tasks. Software testers were considered as well, but as they often require more specialised test data any tester-specific user stories were set aside for future development opportunities.
 
-### User Interface Design
+![Problem Analysis evidence](res/Ideate1.PNG)
+
+![Ideation evidence](res/Ideate2.PNG)
+
+Once the good and bad of each idea were set out, three ideas were shortlisted for the Minimal Viable Product. These three deliverables are specified in the image above, with a reason for why they were shortlisted.
+
+Not listed in the ideation documents are the non-functional requirements (NFRs) which would need to be satisfied by the web app. These include:
+
+- scalable and future-proof ui design.
+- accessibility requirements, such as alt text for screen readers and UI colour selection.
+- usability with responsive user interface.
+
+Some of the other stakeholders apart from the final userm, to be included in the project were:
+
+- A developer to code review any code additions
+- A selected user to assess the quality and acceptance test feature releases.
+
+## Choosing a Technical Stack
+
+After ideation was complete, it was then time to choose a technical stack to use for the web app. There were several options from the outset including AngularJS, ReactJS or NextJS for a front end and possibly a flask app to act as a server-side API. After some deliberation ReactJS was chosen as it could serve as a lightweight front-end web app. As the application would be relying on external APIs it was decided not to develop a back-end service for this project. However, for any future development, there is the opportunity to create an API to serve any custom data generation.
+
+Node Package Manager was chosen to handle the external dependencies required for the React App and testing libraries.
+
+## User Interface Design
+
+To design the user interface a prototyping tool - Figma was used. Figma allowed the rough components making up the UI to be planned so that there was a template to aim for in the final product, which is shown in the images below. The project was set out to create a Minimal Viable Product, so the main functionalities selected during ideation are presented in the UI design. These are the export button and the filtering components.
+
+As the product is only meant to be an MVP, the UI design also includes some areas for expansion. One of the NFRs is to make the app design scalable, so a landing page has been designed to serve as a directory for future additional test data portals to be linked from. Also included in the UI design document is a navigation bar, to make navigation within the web app simple. This was added to improve usability and it is always available at the bottom of the viewport.
+
+The colour palette used in the UI prototype was originally chosen to be vibrant and visually pleasing. As the web app was being developed, some of the feedback from quality assurance testing raised that the grey text was not very readable. This would be a potential accessibility concern, so the palette was changed in the final web app implementation to have greater contrast.
 
 ![alt text](res/Figma1.PNG)
 
 ![alt text](res/Figma2.PNG)
 
-[Figma Link](https://www.figma.com/file/YsBjuMR3hcsKRLJFGfePu4/Data-Kernel_?type=design&node-id=4%3A63&mode=design&t=KhngNZH3w0eEhSVj-1)
+The link to the Figma prototype is [here](https://www.figma.com/file/YsBjuMR3hcsKRLJFGfePu4/Data-Kernel_?type=design&node-id=4%3A63&mode=design&t=KhngNZH3w0eEhSVj-1)
 
-### Development Sprints
+## Setting up the Development Environment
 
-TBC sprint length
+Before development could begin on the features of the web app, an efficient development environment was created. The repository was set to have a conventional directory structure with a `res/` folder for images and resources and a `.github/` folder. The latter stores a pull request (PR) template, which automatically populates a PR with sections for a description, story ticket links and a checklist for testing, code comments and documentation. This addition accelerated the developer workflow significantly and caught PRs missing comments before they were merged into an environment.
 
-TBC refinement
+Also in the `.github/` directory are the GitHub action workflow files. The workflows defined here automate testing whenever a PR is made to a protected branch. The `on-create-pull-request.yml` workflow is triggered by a PR and uses the reusable workflows `run-generate-code` and `run-node-tests`. The former generates test coverage reports and deploys them to Codecov and the latter tests building and unit testing the ReactJS app.
+
+The automated workflows enable multiple node version testing. Before a PR is merged to `development` it is build-tested and unit-tested in node versions 18, 19 and 20. This prevents obsolescence, as we are future-proofing the app to work in the newest Node versions.  The image below shows the GitHub Action in action.
+
+![Alt text](res/action-workflow.PNG)
+
+Another task involved in setting up the development environment is protecting the environment branches. The three branches `development`, `quality-assurance` and `main` hold the code deployed to each of the web app environments. To stop bad code from being pushed into these environments several protection rules were set up:
+
+- Pushing code directly is blocked to protected branches
+- A code review approval is required from a user other than a PR author to merge a branch into a target protected branch
 
 ## App Testing
 
