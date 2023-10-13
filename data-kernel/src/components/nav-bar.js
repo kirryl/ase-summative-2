@@ -7,7 +7,7 @@ import logo from "../logo-white.svg";
 
 const NavBarDataKernel = () => {
   return (
-    <Navbar className="navbar-expand-lg navbar-light bg-light fixed-bottom navbar-dark bg-dark">
+    <Navbar className="navbar-expand-lg fixed-bottom navbar-dark bg-dark bg-opacity-0">
       <Container>
         <Navbar.Brand href="/">
           <img
