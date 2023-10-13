@@ -55,18 +55,18 @@ function DataExport() {
 
   return (
     <Container fluid>
-      <h1 data-testid="page-title" className="text-primary">
+      <h1 data-testid="page-title" className="text-primary pt-5 pb-2">
         Nations Data
       </h1>
       <div>
-        <p data-testid="page-description" className="text-secondary">
+        <p data-testid="page-description" className="text-primary pb-5">
           This is a portal for exporting country data
         </p>
       </div>
       <Button
         type="submit"
         data-testid="page-export-button"
-        className="btn-primary"
+        className="btn-primary "
         onClick={handleButtonClick}
       >
         Export JSON
