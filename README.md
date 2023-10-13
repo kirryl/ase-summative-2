@@ -112,7 +112,34 @@ The project has these major dependencies:
 
 ## Table of Contents
 
-TBC
+- [Data Kernel\_](#data-kernel_)
+  - [Quick Start Guide](#quick-start-guide)
+  - [Repository Structure](#repository-structure)
+  - [Dependenies](#dependenies)
+- [Project Report](#project-report)
+  - [Table of Contents](#table-of-contents)
+  - [Background](#background)
+  - [Project Management](#project-management)
+    - [Software Development Process](#software-development-process)
+    - [Ticketing](#ticketing)
+    - [Milestones](#milestones)
+    - [Naming conventions](#naming-conventions)
+  - [Problem Analysis and Ideation](#problem-analysis-and-ideation)
+  - [Choosing a Technical Stack](#choosing-a-technical-stack)
+  - [User Interface Design](#user-interface-design)
+  - [Setting up the Development Environment](#setting-up-the-development-environment)
+      - [Development](#development)
+      - [Quality Assurance](#quality-assurance)
+      - [Live](#live)
+    - [CI/CD](#cicd)
+  - [Code Quality](#code-quality)
+    - [Test Driven Development](#test-driven-development)
+    - [Peer Code Reviews](#peer-code-reviews)
+    - [Testing with Jest](#testing-with-jest)
+  - [Evaluation](#evaluation)
+    - [Requirements](#requirements)
+    - [UI and UX](#ui-and-ux)
+    - [Usability and Accessibility](#usability-and-accessibility)
 
 ## Background
 
