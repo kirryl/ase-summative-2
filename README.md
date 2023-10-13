@@ -1,4 +1,11 @@
+<div align="center">
+
+<img width="150mm"  src="data-kernel/src/logo-white.svg">
+
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5a0f3cd6-4264-4d26-89b2-49d56405256f/deploy-status)](https://app.netlify.com/sites/gregarious-granita-344ab3/deploys)
+[![codecov](https://codecov.io/gh/kirryl/ase-summative-2/graph/badge.svg?token=SG9B2TBR77)](https://codecov.io/gh/kirryl/ase-summative-2)
+
+</div>
 
 Check out the live app [here!](https://gregarious-granita-344ab3.netlify.app)
 
@@ -127,13 +134,41 @@ After reviewing the agile methods used in this project there were some lessons l
 
 ### Ticketing
 
-Any ticket which can be fixed via a pull request is created as a Github Issue. The project follows an incremental development approach. Each sprint the new feature issues would expand on the functionality of the web app. At the start of a sprint, each planned ticket is refined to specify the aim and requirements for a user story.
+![Kanban tickets](res/ticketing.PNG)
 
-Github Milestones are used in the place of traditional 'epics'. The milestone groups a set of tickets which relate to a project deliverable or greater functionality.
+To use GitHub projects and the GitHub repository effectively together each task was created as an issue in the project repository. Prior to a sprint, a task in the backlog is refined. During a refinement session a ticket would:
 
-## Project Steps
+- have a brief explanation added
+- assigned subtasks if it could be broken down into steps
+- be allocated to a milestone
+- given a complexity estimate
 
-### Problem Analysis
+The complexity estimates are not related to how much time would be spent on a ticket but rather its complexity.  for instance, a task which has no unknowns could be estimated to be a Fibonacci number of 1 or 2,  whereas tasks with unknowns could be estimated at 5 or 8.
+
+### Milestones
+
+One feature of GitHub used in this project is Milestones. For each stage in the incremental development of Data Kernel, a milestone was set. Each ticket which contributed to reaching a milestone was assigned to it. This way it was clear which tasks were helping achieve a milestone. If assigned to a milestone, the ticket could be prioritised to reach a milestone faster.
+
+### Naming conventions
+
+During the project some naming conventions were enforced for consistency
+
+Tickets:
+
+- Base verb used at the begining of a ticket name (e.g. `Add, Update, Fix`)
+
+Commits:
+
+- Base verb used at the begining of a ticket name (e.g. `Add, Update, Fix`)
+- Only capitalise first word of a commit (e.g. `Add more tests`)
+
+Branches:
+
+- All lower case
+- Hyphen `-` separated names
+- Feature branch names start with `feature` (e.g. `feature-add-more-tests`)
+
+## Problem Analysis
 
 ![alt text](res/Ideate1.PNG)
 
